@@ -13,9 +13,9 @@
       {
         "group": "Overview",
         "pages": [
-          "/categories/overview/introduction",
-          "/categories/overview/getting-started",
-          "/categories/overview/customization"
+          "/overview/introduction",
+          "/overview/getting-started",
+          "/overview/customization"
         ]
       },
       {
