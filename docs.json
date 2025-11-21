@@ -13,46 +13,46 @@
       {
         "group": "Overview",
         "pages": [
-          "categories/overview/introduction",
-          "categories/overview/getting-started",
-          "categories/overview/customization"
+          "/categories/overview/introduction",
+          "/categories/overview/getting-started",
+          "/categories/overview/customization"
         ]
       },
       {
         "group": "Configurations",
         "pages": [
-          "categories/support/automderation",
-          "categories/support/ticketsystem",
-          "categories/support/logging",
-          "categories/support/errorlogs"
+          "/categories/support/automderation",
+          "/categories/support/ticketsystem",
+          "/categories/support/logging",
+          "/categories/support/errorlogs"
         ]
       },
       {
         "group": "Server Management",
         "pages": [
-          "categories/svr-management/messages",
-          "categories/svr-management/staff",
-          "categories/svr-management/roles",
-          "categories/svr-management/custom-cmds"
+          "/categories/svr-management/messages",
+          "/categories/svr-management/staff",
+          "/categories/svr-management/roles",
+          "/categories/svr-management/custom-cmds"
         ]
       },
       {
         "group": "Community",
         "pages": [
-          "categories/community/Chatbot",
-          "categories/community/giveaways",
-          "categories/community/leveling",
-          "categories/ai-tools/suggestions"
+          "/categories/community/Chatbot",
+          "/categories/community/giveaways",
+          "/categories/community/leveling",
+          "/categories/ai-tools/suggestions"
         ]
       },
       {
         "group": "API Reference",
         "pages": [
-          "categories/api-reference/introduction",
-          "categories/api-reference/endpoint/get",
-          "categories/api-reference/endpoint/create",
-          "categories/api-reference/endpoint/delete",
-          "categories/api-reference/endpoint/webhook"
+          "/categories/api-reference/introduction",
+          "/categories/api-reference/endpoint/get",
+          "/categories/api-reference/endpoint/create",
+          "/categories/api-reference/endpoint/delete",
+          "/categories/api-reference/endpoint/webhook"
         ]
       }
     ]
