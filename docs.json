@@ -14,7 +14,7 @@
         "tab": "Guides",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Overview",
             "pages": [
               "index",
               "quickstart",
@@ -22,27 +22,30 @@
             ]
           },
           {
-            "group": "Customization",
+            "group": "Support & Moderation",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "support/automoderation",
+              "support/ticketsystem",
+              "support/logging",
+              "support/errorlogs"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Server Management",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "svr-management/messages",
+              "svr-management/staff",
+              "svr-management/roles",
+              "svr-management/custom-cmds"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Community",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "community/Chatbot",
+              "community/giveaways",
+              "community/leveling",
+              "ai-tools/suggestions"
             ]
           }
         ]
