@@ -24,28 +24,28 @@
           {
             "group": "Support & Moderation",
             "pages": [
-              "support/automoderation",
-              "support/ticketsystem",
-              "support/logging",
-              "support/errorlogs"
+              "categories/support/automoderation",
+              "categories/support/ticketsystem",
+              "categories/support/logging",
+              "categories/support/errorlogs"
             ]
           },
           {
             "group": "Server Management",
             "pages": [
-              "svr-management/messages",
-              "svr-management/staff",
-              "svr-management/roles",
-              "svr-management/custom-cmds"
+              "categories/svr-management/messages",
+              "categories/svr-management/staff",
+              "categories/svr-management/roles",
+              "categories/svr-management/custom-cmds"
             ]
           },
           {
             "group": "Community",
             "pages": [
-              "community/Chatbot",
-              "community/giveaways",
-              "community/leveling",
-              "ai-tools/suggestions"
+              "categories/community/Chatbot",
+              "categories/community/giveaways",
+              "categories/community/leveling",
+              "categories/ai-tools/suggestions"
             ]
           }
         ]
@@ -56,16 +56,16 @@
           {
             "group": "API documentation",
             "pages": [
-              "api-reference/introduction"
+              "categories/api-reference/introduction"
             ]
           },
           {
             "group": "Endpoint examples",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "categories/api-reference/endpoint/get",
+              "categories/api-reference/endpoint/create",
+              "categories/api-reference/endpoint/delete",
+              "categories/api-reference/endpoint/webhook"
             ]
           }
         ]
