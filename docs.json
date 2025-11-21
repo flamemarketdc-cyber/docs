@@ -1,90 +1,61 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Flamey",
   "colors": {
-    "primary": "#6C3BAA",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#8660FA",
+    "light": "#A855F7",
+    "dark": "#5E38C2"
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "tabs": [
+    "groups": [
       {
-        "tab": "Guides",
-        "groups": [
-          {
-            "group": "Overview",
-            "pages": [
-              "index",
-              "quickstart",
-              "development"
-            ]
-          },
-          {
-            "group": "Support & Moderation",
-            "pages": [
-              "categories/support/automoderation",
-              "categories/support/ticketsystem",
-              "categories/support/logging",
-              "categories/support/errorlogs"
-            ]
-          },
-          {
-            "group": "Server Management",
-            "pages": [
-              "categories/svr-management/messages",
-              "categories/svr-management/staff",
-              "categories/svr-management/roles",
-              "categories/svr-management/custom-cmds"
-            ]
-          },
-          {
-            "group": "Community",
-            "pages": [
-              "categories/community/Chatbot",
-              "categories/community/giveaways",
-              "categories/community/leveling",
-              "categories/ai-tools/suggestions"
-            ]
-          }
+        "group": "Overview",
+        "pages": [
+          "index",
+          "quickstart",
+          "development"
         ]
       },
       {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "categories/api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint examples",
-            "pages": [
-              "categories/api-reference/endpoint/get",
-              "categories/api-reference/endpoint/create",
-              "categories/api-reference/endpoint/delete",
-              "categories/api-reference/endpoint/webhook"
-            ]
-          }
+        "group": "Support & Moderation",
+        "pages": [
+          "categories/support/automderation",
+          "categories/support/ticketsystem",
+          "categories/support/logging",
+          "categories/support/errorlogs"
+        ]
+      },
+      {
+        "group": "Server Management",
+        "pages": [
+          "categories/svr-management/messages",
+          "categories/svr-management/staff",
+          "categories/svr-management/roles",
+          "categories/svr-management/custom-cmds"
+        ]
+      },
+      {
+        "group": "Community",
+        "pages": [
+          "categories/community/Chatbot",
+          "categories/community/giveaways",
+          "categories/community/leveling",
+          "categories/ai-tools/suggestions"
+        ]
+      },
+      {
+        "group": "API Reference",
+        "pages": [
+          "categories/api-reference/introduction",
+          "categories/api-reference/endpoint/get",
+          "categories/api-reference/endpoint/create",
+          "categories/api-reference/endpoint/delete",
+          "categories/api-reference/endpoint/webhook"
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
@@ -100,20 +71,20 @@
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "href": "https://dashboard.flamey.lol"
     }
   },
   "contextual": {
     "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
   },
   "footer": {
     "socials": {
