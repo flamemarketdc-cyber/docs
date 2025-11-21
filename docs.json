@@ -21,38 +21,38 @@
       {
         "group": "Configurations",
         "pages": [
-          "/categories/support/automderation",
-          "/categories/support/ticketsystem",
-          "/categories/support/logging",
-          "/categories/support/errorlogs"
+          "/support/automderation",
+          "/support/ticketsystem",
+          "support/logging",
+          "/support/errorlogs"
         ]
       },
       {
         "group": "Server Management",
         "pages": [
-          "/categories/svr-management/messages",
-          "/categories/svr-management/staff",
-          "/categories/svr-management/roles",
-          "/categories/svr-management/custom-cmds"
+          "/server-management/messages",
+          "/server-management/staff",
+          "/server-management/roles",
+          "/server-management/custom-cmds"
         ]
       },
       {
         "group": "Community",
         "pages": [
-          "/categories/community/Chatbot",
-          "/categories/community/giveaways",
-          "/categories/community/leveling",
-          "/categories/ai-tools/suggestions"
+          "/community/Chatbot",
+          "/community/giveaways",
+          "/community/leveling",
+          "/community/suggestions"
         ]
       },
       {
         "group": "API Reference",
         "pages": [
-          "/categories/api-reference/introduction",
-          "/categories/api-reference/endpoint/get",
-          "/categories/api-reference/endpoint/create",
-          "/categories/api-reference/endpoint/delete",
-          "/categories/api-reference/endpoint/webhook"
+          "/api-reference/introduction",
+          "/api-reference/endpoint/get",
+          "/api-reference/endpoint/create",
+          "/api-reference/endpoint/delete",
+          "/api-reference/endpoint/webhook"
         ]
       }
     ]
