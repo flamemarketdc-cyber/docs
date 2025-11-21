@@ -11,80 +11,51 @@
   "navigation": {
     "groups": [
       {
-        "group": "Guides",
-        "groups": [
-          {
-            "group": "Overview",
-            "pages": [
-              "index",
-              "quickstart",
-              "development"
-            ]
-          },
-          {
-            "group": "Support & Moderation",
-            "pages": [
-              "categories/support/automderation",
-              "categories/support/ticketsystem",
-              "categories/support/logging",
-              "categories/support/errorlogs"
-            ]
-          },
-          {
-            "group": "Server Management",
-            "pages": [
-              "categories/svr-management/messages",
-              "categories/svr-management/staff",
-              "categories/svr-management/roles",
-              "categories/svr-management/custom-cmds"
-            ]
-          },
-          {
-            "group": "Community",
-            "pages": [
-              "categories/community/Chatbot",
-              "categories/community/giveaways",
-              "categories/community/leveling",
-              "categories/ai-tools/suggestions"
-            ]
-          }
+        "group": "Overview",
+        "pages": [
+          "index",
+          "quickstart",
+          "development"
         ]
       },
       {
-        "group": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "categories/api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint examples",
-            "pages": [
-              "categories/api-reference/endpoint/get",
-              "categories/api-reference/endpoint/create",
-              "categories/api-reference/endpoint/delete",
-              "categories/api-reference/endpoint/webhook"
-            ]
-          }
+        "group": "Support & Moderation",
+        "pages": [
+          "categories/support/automderation",
+          "categories/support/ticketsystem",
+          "categories/support/logging",
+          "categories/support/errorlogs"
+        ]
+      },
+      {
+        "group": "Server Management",
+        "pages": [
+          "categories/svr-management/messages",
+          "categories/svr-management/staff",
+          "categories/svr-management/roles",
+          "categories/svr-management/custom-cmds"
+        ]
+      },
+      {
+        "group": "Community",
+        "pages": [
+          "categories/community/Chatbot",
+          "categories/community/giveaways",
+          "categories/community/leveling",
+          "categories/ai-tools/suggestions"
+        ]
+      },
+      {
+        "group": "API Reference",
+        "pages": [
+          "categories/api-reference/introduction",
+          "categories/api-reference/endpoint/get",
+          "categories/api-reference/endpoint/create",
+          "categories/api-reference/endpoint/delete",
+          "categories/api-reference/endpoint/webhook"
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
@@ -100,20 +71,20 @@
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "href": "https://dashboard.flamey.lol"
     }
   },
   "contextual": {
     "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
   },
   "footer": {
     "socials": {
