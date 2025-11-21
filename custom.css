@@ -1,0 +1,14 @@
+/* Hide the theme toggle button */
+button[aria-label*="theme"],
+button[aria-label*="mode"],
+[data-theme-toggle] {
+  display: none !important;
+}
+#sidebar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+#sidebar::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}

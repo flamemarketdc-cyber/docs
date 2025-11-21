@@ -7,65 +7,65 @@
     "light": "#A855F7",
     "dark": "#5E38C2"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "https://i.postimg.cc/bJBHPq11/Flamey.png",
   "navigation": {
     "groups": [
       {
         "group": "Overview",
         "pages": [
-          "index",
-          "quickstart",
-          "development"
+          "/overview/introduction",
+          "/overview/getting-started",
+          "/overview/customization"
         ]
       },
       {
-        "group": "Support & Moderation",
+        "group": "Configurations",
         "pages": [
-          "categories/support/automderation",
-          "categories/support/ticketsystem",
-          "categories/support/logging",
-          "categories/support/errorlogs"
+          "/support/automderation",
+          "/support/ticketsystem",
+          "support/logging",
+          "/support/errorlogs"
         ]
       },
       {
         "group": "Server Management",
         "pages": [
-          "categories/svr-management/messages",
-          "categories/svr-management/staff",
-          "categories/svr-management/roles",
-          "categories/svr-management/custom-cmds"
+          "/server-management/messages",
+          "/server-management/staff",
+          "/server-management/roles",
+          "/server-management/custom-cmds"
         ]
       },
       {
         "group": "Community",
         "pages": [
-          "categories/community/Chatbot",
-          "categories/community/giveaways",
-          "categories/community/leveling",
-          "categories/ai-tools/suggestions"
+          "/community/Chatbot",
+          "/community/giveaways",
+          "/community/leveling",
+          "/community/suggestions"
         ]
       },
       {
         "group": "API Reference",
         "pages": [
-          "categories/api-reference/introduction",
-          "categories/api-reference/endpoint/get",
-          "categories/api-reference/endpoint/create",
-          "categories/api-reference/endpoint/delete",
-          "categories/api-reference/endpoint/webhook"
+          "/api-reference/introduction",
+          "/api-reference/endpoint/get",
+          "/api-reference/endpoint/create",
+          "/api-reference/endpoint/delete",
+          "/api-reference/endpoint/webhook"
         ]
       }
     ]
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "https://i.postimg.cc/bJBHPq11/Flamey.png",
+    "dark": "https://i.postimg.cc/bJBHPq11/Flamey.png"
   },
   "navbar": {
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "https://discord.gg/umXFwGUxZz"
       }
     ],
     "primary": {
@@ -77,20 +77,13 @@
   "contextual": {
     "options": [
       "copy",
-      "view",
-      "chatgpt",
-      "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
+      "chatgpt"
     ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "discord": "https://discord.gg/umXFwGUxZz",
+      "website": "https://top.gg/bot/1435953298262724729"
     }
   }
 }
