@@ -9,9 +9,9 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "tabs": [
+    "groups": [
       {
-        "tab": "Guides",
+        "group": "Guides",
         "groups": [
           {
             "group": "Overview",
@@ -51,7 +51,7 @@
         ]
       },
       {
-        "tab": "API reference",
+        "group": "API reference",
         "groups": [
           {
             "group": "API documentation",
