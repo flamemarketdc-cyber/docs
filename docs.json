@@ -23,7 +23,7 @@
         "pages": [
           "/support/automderation",
           "/support/ticketsystem",
-          "support/logging",
+          "/support/logging",
           "/support/errorlogs"
         ]
       },
