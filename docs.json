@@ -24,7 +24,7 @@
           {
             "group": "Support & Moderation",
             "pages": [
-              "categories/support/automoderation",
+              "categories/support/automderation",
               "categories/support/ticketsystem",
               "categories/support/logging",
               "categories/support/errorlogs"
