@@ -13,13 +13,13 @@
       {
         "group": "Overview",
         "pages": [
-          "index",
-          "quickstart",
-          "development"
+          "categories/overview/introduction",
+          "categories/overview/getting-started",
+          "categories/overview/customization"
         ]
       },
       {
-        "group": "Support & Moderation",
+        "group": "Configurations",
         "pages": [
           "categories/support/automderation",
           "categories/support/ticketsystem",
