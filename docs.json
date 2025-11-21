@@ -7,7 +7,7 @@
     "light": "#A855F7",
     "dark": "#5E38C2"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "https://i.postimg.cc/bJBHPq11/Flamey.png",
   "navigation": {
     "groups": [
       {
@@ -58,14 +58,14 @@
     ]
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "https://i.postimg.cc/bJBHPq11/Flamey.png",
+    "dark": "https://i.postimg.cc/bJBHPq11/Flamey.png"
   },
   "navbar": {
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "https://discord.gg/umXFwGUxZz"
       }
     ],
     "primary": {
@@ -77,20 +77,13 @@
   "contextual": {
     "options": [
       "copy",
-      "view",
-      "chatgpt",
-      "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
+      "chatgpt"
     ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "discord": "https://discord.gg/umXFwGUxZz",
+      "website": "https://top.gg/bot/1435953298262724729"
     }
   }
 }
