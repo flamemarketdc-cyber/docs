@@ -27,46 +27,46 @@
         ]
       },
       {
-  "group": "Server Configuration",
-  "pages": [
-    {
-      "group": "Roles",
-      "pages": [
-        "/configuration/roles/vanity",
-        "/configuration/roles/guild-tag",
-        "/configuration/roles/join",
-        "/configuration/roles/self"
-      ]
-    },
-    {
-      "group": "Messages",
-      "pages": [
-        "/configuration/messages/system",
-        "/configuration/messages/sticky",
-        "/configuration/messages/scheduled",
-        "/configuration/messages/auto-responder",
-        "/configuration/messages/auto-responder",
-        "/configuration/messages/templates"
-      ]
-    },
-    {
-      "group": "Commands",
-      "pages": [
-        "/configuration/commands/configuration",
-        "/configuration/commands/custom"
-      ]
-    },
-    {
-      "group": "Staff",
-      "pages": [
-        "/configuration/staff/applications",
-        "/configuration/staff/stats"
-      ]
-    },
-    "/configuration/ticket-system",
-    "/configuration/webhooks"
-      ]
-    },
+        "group": "Server Configuration",
+        "pages": [
+          {
+            "group": "Roles",
+            "pages": [
+              "/configuration/roles/vanity",
+              "/configuration/roles/guild-tag",
+              "/configuration/roles/join",
+              "/configuration/roles/self"
+            ]
+          },
+          {
+            "group": "Messages",
+            "pages": [
+              "/configuration/messages/system",
+              "/configuration/messages/sticky",
+              "/configuration/messages/scheduled",
+              "/configuration/messages/auto-responder",
+              "/configuration/messages/auto-responder",
+              "/configuration/messages/templates"
+            ]
+          },
+          {
+            "group": "Commands",
+            "pages": [
+              "/configuration/commands/configuration",
+              "/configuration/commands/custom"
+            ]
+          },
+          {
+            "group": "Staff",
+            "pages": [
+              "/configuration/staff/applications",
+              "/configuration/staff/stats"
+            ]
+          },
+          "/configuration/ticket-system",
+          "/configuration/webhooks"
+        ]
+      },
       {
         "group": "Community",
         "pages": [
@@ -89,15 +89,6 @@
           "/common-issues/giveaways",
           "/common-issues/leveling",
           "/common-issues/suggestions"
-        ]
-      },
-      {
-        "group": "API Reference",
-        "pages": [
-          "/api-reference/endpoint/get",
-          "/api-reference/endpoint/create",
-          "/api-reference/endpoint/delete",
-          "/api-reference/endpoint/webhook"
         ]
       }
     ]
