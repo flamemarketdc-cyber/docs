@@ -107,7 +107,7 @@ function addMessage(sender, text) {
 async function sendToBot(message) {
   addMessage("bot", "Typing...");
   try {
-    const res = await fetch("https://docs-sepia-xi.vercel.app/api/chat", {
+    const res = await fetch("https://chatbot-for-mintlify.vercel.app/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message }),

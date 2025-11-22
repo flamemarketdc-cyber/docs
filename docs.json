@@ -133,5 +133,18 @@
       "discord": "https://discord.gg/umXFwGUxZz",
       "website": "https://top.gg/bot/1435953298262724729"
     }
+  },
+  "pages": {
+    "/community/chatbot": {
+      "head": [
+        {
+          "tag": "script",
+          "attrs": {
+            "src": "/static/chatbot.js",
+            "defer": true
+          }
+        }
+      ]
+    }
   }
 }
