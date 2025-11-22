@@ -199,10 +199,10 @@
     .f-messages-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
 
     .f-msg-row { display: flex; flex-direction: column; gap: 0; animation: f-fade-in 0.3s ease-out; } /* Removed gap */
-    .f-msg-row.user { align-items: flex-start; } /* Changed from flex-end to flex-start */
+    .f-msg-row.user { align-items: flex-end; } /* Changed from flex-end to flex-start */
     
     .f-msg-content { display: flex; gap: 12px; max-width: 100%; width: 100%; }
-    .f-msg-row.user .f-msg-content { justify-content: flex-start; } /* Changed to flex-start */
+    .f-msg-row.user .f-msg-content { justify-content: flex-end; } /* Changed to flex-start */
 
     .f-bubble {
       max-width: 90%; /* Increased from 85% */
@@ -218,7 +218,7 @@
       background: #1E1E26; 
       padding: 10px 14px; 
       border-radius: 12px; 
-      border-bottom-left-radius: 2px; /* Changed from bottom-right to bottom-left */
+      border-bottom-right-radius: 2px;
       color: white; 
       border: 1px solid var(--f-border);
     }
@@ -312,10 +312,10 @@
       background: #15151A; /* Same as before */
       border: 1px solid var(--f-border);
       border-radius: 16px;
-      padding: 8px 12px 8px 16px; /* Adjusted padding for better spacing */
+      padding: 8px 8px 8px 16px; /* Adjusted padding for better spacing */
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 4px;
       transition: border 0.2s;
     }
     .f-input-box:focus-within { border-color: var(--f-primary); }
@@ -328,7 +328,7 @@
       font-size: 14px;
       padding: 8px 0;
       outline: none;
-      margin: 0 8px; /* Added more horizontal spacing */
+      margin: 0 4px; /* Added more horizontal spacing */
     }
     #f-panel-input::placeholder { color: rgba(255,255,255,0.25); }
 
