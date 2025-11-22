@@ -96,6 +96,16 @@
         ]
       },
       {
+        "group": "Resources",
+        "pages": [
+          "/resources/syntax",
+          "/resources/variables",
+          "/resources/permissions",
+          "/resources/events",
+          "/resources/translation-languages"
+        ]
+      },
+      {
         "group": "Common Issues",
         "pages": [
           "/common-issues/permissions"
