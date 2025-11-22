@@ -47,7 +47,6 @@
               "/configuration/messages/sticky",
               "/configuration/messages/scheduled",
               "/configuration/messages/auto-responder",
-              "/configuration/messages/auto-responder",
               "/configuration/messages/templates"
             ]
           },
@@ -67,32 +66,31 @@
               "/configuration/staff/stats"
             ]
           },
-          "/configuration/ticket-system",
-          "/configuration/webhooks"
+          "/configuration/ticket-system"
         ]
       },
       {
         "group": "Community",
         "pages": [
           "/community/chatbot",
-          "/community/giveaways",
+          "/community/giveaway",
           "/community/leveling",
-          "/community/suggestions"
+          "/community/suggestion"
         ]
       },
       {
         "group": "Miscellaneous",
         "pages": [
-          "/miscellaneous/suggestions"
+          "/miscellaneous/suggestion"
         ]
       },
       {
         "group": "Common Issues",
         "pages": [
           "/common-issues/Chatbot",
-          "/common-issues/giveaways",
+          "/common-issues/giveaway",
           "/common-issues/leveling",
-          "/common-issues/suggestions"
+          "/common-issues/suggestion"
         ]
       }
     ]
