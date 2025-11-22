@@ -1,14 +1,20 @@
-/* Hide the theme toggle button */
+/* Hide theme toggle */
 button[aria-label*="theme"],
 button[aria-label*="mode"],
 [data-theme-toggle] {
   display: none !important;
 }
-#sidebar {
+
+/* Hide sidebar scrollbar - all browsers */
+#sidebar,
+#sidebar-content {
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
 }
 
-#sidebar::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
+#sidebar::-webkit-scrollbar,
+#sidebar-content::-webkit-scrollbar {
+  display: none !important; /* Chrome/Safari/Edge */
+  width: 0 !important;
+  height: 0 !important;
 }
