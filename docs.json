@@ -60,7 +60,7 @@
           },
           {
             "group": "Staff",
-            "icon": "users-round",
+            "icon": "users-gear",
             "pages": [
               "/configuration/staff/applications",
               "/configuration/staff/stats"
