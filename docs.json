@@ -19,16 +19,16 @@
         ]
       },
       {
-        "group": "Configurations",
+        "group": "Server Configuration",
         "pages": [
           "/support/automderation",
           "/support/ticketsystem",
-          "support/logging",
+          "/support/logging",
           "/support/errorlogs"
         ]
       },
       {
-        "group": "Server Management",
+        "group": "Security Setup",
         "pages": [
           "/server-management/messages",
           "/server-management/staff",
@@ -46,9 +46,26 @@
         ]
       },
       {
+        "group": "Miscellaneous",
+        "pages": [
+          "/miscellaneous/Chatbot",
+          "/miscellaneous/giveaways",
+          "/miscellaneous/leveling",
+          "/miscellaneous/suggestions"
+        ]
+      },
+      {
+        "group": "Common Issues",
+        "pages": [
+          "/common-issues/Chatbot",
+          "/common-issues/giveaways",
+          "/common-issues/leveling",
+          "/common-issues/suggestions"
+        ]
+      },
+      {
         "group": "API Reference",
         "pages": [
-          "/api-reference/introduction",
           "/api-reference/endpoint/get",
           "/api-reference/endpoint/create",
           "/api-reference/endpoint/delete",
