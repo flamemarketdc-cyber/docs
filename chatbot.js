@@ -202,7 +202,7 @@
     .f-msg-row.user { align-items: flex-end; } /* Changed from flex-end to flex-start */
     
     .f-msg-content { display: flex; gap: 12px; max-width: 100%; width: 100%; }
-    .f-msg-row.user .f-msg-content { justify-content: flex-end; } /* Changed to flex-start */
+    .f-msg-row.user .f-msg-content { justify-content: flex-end; }
 
     .f-bubble {
       max-width: 90%; /* Increased from 85% */
@@ -595,74 +595,80 @@
   }
 
   // --- Send Logic ---
-  async function sendMessage(text, source = 'panel') {
-    if (!text && !currentFile) return;
+async function sendMessage(text, source = 'panel') {
+  if (!text && !currentFile) return;
 
-    if (source === 'bar') {
-      openPanel();
-      barInput.value = '';
-      // Clear any existing content and show user message instantly
-      messagesArea.innerHTML = '';
-      hasUserMessage = true;
-    } else {
-      panelInput.value = '';
-    }
-
-    // Reset file UI
-    if (currentFile) {
-      text = `[Uploaded Image] ${text}`;
-      removeFile();
-    }
-
-    lastUserMessage = text;
-    addMessage(text, 'user');
-    showTyping();
-
-    // System Instruction: Professional, concise, no unsolicited links
-    const systemPrompt = `
-      You are a professional assistant for the Flamey Discord Bot.
-      Current Context: User is on ${window.location.href}
-      
-      Rules:
-      1. Be concise, direct, and professional.
-      2. Use bullet points for lists (start lines with "- ").
-      3. Do NOT include quick action buttons or links unless the user explicitly asks "how to" or "where to".
-      4. If you do provide actions, append strictly formatted JSON at the very end on a new line: [ACTIONS][{"label":"Text","query":"Query"}]
-      5. If the user asks for a feature description, keep it brief.
-    `;
-
-    const fullPrompt = `${systemPrompt}\n\nUser: ${text}`;
-
-    try {
-      const res = await fetch(CONFIG.apiUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: fullPrompt }),
-      });
-      
-      const data = await res.json();
-      removeTyping();
-
-      let reply = data.reply || "I apologize, but I'm unable to process that request at the moment.";
-      
-      // Parse Actions
-      let actions = [];
-      if (reply.includes('[ACTIONS]')) {
-        const parts = reply.split('[ACTIONS]');
-        reply = parts[0].trim();
-        try {
-          actions = JSON.parse(parts[1]);
-        } catch(e) {}
-      }
-
-      addMessage(reply, 'bot', actions.length > 0);
-      if (actions.length > 0) addQuickLinks(actions);
-
-    } catch (err) {
-      removeTyping();
-      addMessage("I'm having trouble connecting to the server. Please check your internet connection.", 'bot');
-    }
+  if (source === 'bar') {
+    openPanel();
+    barInput.value = '';
+    // Clear any existing content and show user message instantly
+    messagesArea.innerHTML = '';
+    hasUserMessage = true;
+  } else {
+    panelInput.value = '';
   }
+
+  // Store the original text for display
+  const displayText = currentFile ? `[Uploaded Image] ${text}` : text;
+  
+  lastUserMessage = text;
+  addMessage(displayText, 'user');
+  showTyping();
+
+  // System Instruction: Professional, concise, no unsolicited links
+  const systemPrompt = `
+    You are a professional assistant for the Flamey Discord Bot.
+    Current Context: User is on ${window.location.href}
+    
+    Rules:
+    1. Be concise, direct, and professional.
+    2. Use bullet points for lists (start lines with "- ").
+    3. Do NOT include quick action buttons or links unless the user explicitly asks "how to" or "where to".
+    4. If you do provide actions, append strictly formatted JSON at the very end on a new line: [ACTIONS][{"label":"Text","query":"Query"}]
+      5. If the user asks for a feature description, keep it brief.
+  `;
+
+  // Prepare the request data
+  const requestData = {
+    message: `${systemPrompt}\n\nUser: ${text}`,
+    image: currentFile ? currentFile.base64 : null
+  };
+
+  // Reset file UI after storing the data
+  if (currentFile) {
+    removeFile();
+  }
+
+  try {
+    const res = await fetch(CONFIG.apiUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(requestData),
+    });
+    
+    const data = await res.json();
+    removeTyping();
+
+    let reply = data.reply || "I apologize, but I'm unable to process that request at the moment.";
+    
+    // Parse Actions
+    let actions = [];
+    if (reply.includes('[ACTIONS]')) {
+      const parts = reply.split('[ACTIONS]');
+      reply = parts[0].trim();
+      try {
+        actions = JSON.parse(parts[1]);
+      } catch(e) {}
+    }
+
+    addMessage(reply, 'bot', actions.length > 0);
+    if (actions.length > 0) addQuickLinks(actions);
+
+  } catch (err) {
+    removeTyping();
+    addMessage("I'm having trouble connecting to the server. Please check your internet connection.", 'bot');
+  }
+}
 
   // --- Globals for Inline Buttons ---
   window.flameyCopy = (btn, text) => {
