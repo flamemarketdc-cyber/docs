@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Flameyy",
+  "name": "Flamey",
   "colors": {
     "primary": "#7C3AED",
     "light": "#A78BFA",
@@ -21,39 +21,53 @@
       {
         "group": "Security Setup",
         "pages": [
-          "/security-setup/automderation",
+          "/security-setup/auto-moderation",
           "/security-setup/logging",
-          "/security-setup/errorlogs"
+          "/security-setup/error-logs"
         ]
       },
       {
-  "group": "Server Configuration",
-  "pages": [
-    "/server-configuration/messages",
-    "/server-configuration/staff",
-    {
-      "group": "Roles",
-      "pages": [
-        "/server-configuration/roles/vanity",
-        "/server-configuration/roles/guild-tag",
-        "/server-configuration/roles/reaction",
-        "/server-configuration/roles/join"
-      ]
-    },
-    {
-      "group": "Commands",
-      "pages": [
-        "/server-configuration/commands/aliases",
-        "/server-configuration/commands/custom"
-        
-      ]
-    }
-  ]
-},
+        "group": "Server Configuration",
+        "pages": [
+          {
+            "group": "Roles",
+            "pages": [
+              "/server-configuration/roles/vanity",
+              "/server-configuration/roles/guild-tag",
+              "/server-configuration/roles/join",
+              "/server-configuration/roles/self"
+            ]
+          },
+          {
+            "group": "Messages",
+            "pages": [
+              "/server-configuration/messages/system",
+              "/server-configuration/messages/sticky",
+              "/server-configuration/messages/scheduled",
+              "/server-configuration/messages/auto-responders",
+              "/server-configuration/messages/templates"
+            ]
+          },
+          {
+            "group": "Commands",
+            "pages": [
+              "/server-configuration/commands/configuration",
+              "/server-configuration/commands/custom"
+            ]
+          },
+          {
+            "group": "Staff",
+            "pages": [
+              "/server-configuration/staff/applications",
+              "/server-configuration/staff/stats"
+            ]
+          }
+        ]
+      },
       {
         "group": "Community",
         "pages": [
-          "/community/Chatbot",
+          "/community/chatbot",
           "/community/giveaways",
           "/community/leveling",
           "/community/suggestions"
@@ -62,9 +76,6 @@
       {
         "group": "Miscellaneous",
         "pages": [
-          "/miscellaneous/Chatbot",
-          "/miscellaneous/giveaways",
-          "/miscellaneous/leveling",
           "/miscellaneous/suggestions"
         ]
       },
