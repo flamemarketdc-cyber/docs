@@ -22,7 +22,7 @@
     :root {
       --f-primary: ${CONFIG.primaryColor};
       --f-secondary: ${CONFIG.secondaryColor};
-      --f-bg: #0C0C10;
+      --f-bg: #08080B;
       --f-border: rgba(255, 255, 255, 0.08);
       --f-text: #EAF6FF;
       --f-text-sec: #B0BECF;
@@ -62,7 +62,7 @@
     #f-search-bar {
       width: 320px;
       height: 52px;
-      background: rgba(12, 12, 16, 0.8);
+      background: rgba(8, 8, 11, 0.9);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--f-border);
@@ -76,7 +76,7 @@
 
     #f-search-bar:hover, #f-search-bar.focused {
       width: 480px;
-      background: #0C0C10;
+      background: #08080B;
       border-color: rgba(255,255,255,0.2);
       box-shadow: 0 0 0 2px rgba(134, 96, 250, 0.1), 0 20px 50px -10px rgba(0,0,0,0.7);
     }
@@ -111,11 +111,12 @@
     /* --- Side Panel --- */
     #f-panel {
       position: fixed;
-      top: 0;
+      top: 60px; /* Below navbar */
       right: 0;
       bottom: 0;
       width: 360px;
-      max-width: 100vw;
+      min-width: 300px;
+      max-width: 600px;
       background: var(--f-bg);
       border-left: 1px solid var(--f-border);
       box-shadow: -20px 0 50px rgba(0,0,0,0.5);
@@ -125,9 +126,23 @@
       flex-direction: column;
       pointer-events: auto;
       z-index: 20;
+      resize: horizontal;
+      overflow: auto;
     }
 
     #f-panel.open { transform: translateX(0); }
+
+    /* Resize handle */
+    #f-panel::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      cursor: col-resize;
+      z-index: 30;
+    }
 
     /* Header */
     .f-panel-header {
@@ -136,7 +151,8 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 20px;
-      border-bottom: 1px solid transparent; /* Seamless look */
+      border-bottom: 1px solid transparent;
+      flex-shrink: 0;
     }
 
     .f-brand {
@@ -153,9 +169,9 @@
     .f-header-actions { display: flex; gap: 4px; }
 
     .f-icon-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
       border: none;
       background: transparent;
       color: var(--f-text-sec);
@@ -164,6 +180,7 @@
       align-items: center;
       justify-content: center;
       transition: all 0.2s;
+      font-size: 14px;
     }
     .f-icon-btn:hover { background: rgba(255,255,255,0.08); color: white; }
     .f-icon-btn.danger:hover { background: rgba(255, 50, 50, 0.1); color: #ff4444; }
@@ -219,29 +236,31 @@
     .f-bubble a:hover { border-bottom-color: var(--f-primary); }
     .f-bubble code { background: rgba(255,255,255,0.1); padding: 2px 5px; border-radius: 4px; font-family: monospace; font-size: 12px; }
 
-    /* Message Actions (Copy/Regen) */
+    /* Message Actions (Like/Dislike/Copy/Regen) */
     .f-msg-actions {
       display: flex;
-      gap: 8px;
+      gap: 4px;
       margin-left: 40px;
-      opacity: 0;
-      transition: opacity 0.2s;
+      opacity: 1; /* Always visible */
+      align-items: center;
     }
-    .f-msg-row:hover .f-msg-actions { opacity: 1; }
     
     .f-action-btn {
       background: transparent;
       border: none;
       color: var(--f-text-sec);
       cursor: pointer;
-      font-size: 11px;
       display: flex;
       align-items: center;
-      gap: 4px;
-      padding: 2px 6px;
+      justify-content: center;
+      padding: 4px;
       border-radius: 4px;
+      width: 24px;
+      height: 24px;
+      transition: all 0.2s;
     }
     .f-action-btn:hover { background: rgba(255,255,255,0.05); color: white; }
+    .f-action-btn.active { color: var(--f-primary); }
 
     /* Quick Links */
     .f-quick-links {
@@ -289,14 +308,14 @@
     /* Footer Input */
     .f-panel-footer {
       padding: 20px;
-      /* Removed background/border to merge containers */
+      flex-shrink: 0;
     }
     
     .f-input-box {
       background: #15151A;
       border: 1px solid var(--f-border);
       border-radius: 16px;
-      padding: 6px 6px 6px 16px;
+      padding: 8px 8px 8px 16px; /* More breathing room */
       display: flex;
       align-items: center;
       gap: 8px;
@@ -312,6 +331,7 @@
       font-size: 14px;
       padding: 8px 0;
       outline: none;
+      margin: 0 4px;
     }
     #f-panel-input::placeholder { color: rgba(255,255,255,0.25); }
 
@@ -327,6 +347,7 @@
       justify-content: center;
       cursor: pointer;
       transition: 0.2s;
+      margin-left: 4px; /* Added spacing */
     }
     #f-panel-send:hover { background: var(--f-secondary); }
     #f-panel-send:disabled { opacity: 0.5; cursor: default; background: #333; }
@@ -359,15 +380,18 @@
 
   // 3. Icons
   const svgs = {
-    sparkles: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>`,
-    close: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`,
-    trash: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>`,
-    send: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>`,
-    clip: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.88l-8.57 8.57a2 2 0 0 1-2.83-2.83L11.5 9.17"/></svg>`,
-    mic: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>`,
-    copy: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>`,
-    refresh: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>`,
-    x: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`
+    sparkles: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>`,
+    close: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`,
+    trash: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>`,
+    send: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>`,
+    clip: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.88l-8.57 8.57a2 2 0 0 1-2.83-2.83L11.5 9.17"/></svg>`,
+    mic: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>`,
+    copy: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>`,
+    refresh: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>`,
+    x: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`,
+    like: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z"/></svg>`,
+    dislike: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22h0a3.13 3.13 0 0 1-3-3.88Z"/></svg>`,
+    check: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`
   };
 
   // 4. DOM Construction
@@ -442,6 +466,8 @@
   let lastUserMessage = "";
   let recognition = null;
   let isRecording = false;
+  let likedMessages = new Set();
+  let dislikedMessages = new Set();
 
   // --- Functions ---
 
@@ -477,7 +503,6 @@
     welcome.className = 'f-msg-row bot';
     welcome.innerHTML = `
       <div class="f-msg-content">
-        <div class="f-avatar"><img src="${CONFIG.botAvatar}"></div>
         <div class="f-bubble">Hello. I am your Assistant. How can I help you configure your server today?</div>
       </div>`;
     messagesArea.appendChild(welcome);
@@ -541,17 +566,17 @@
     row.className = `f-msg-row ${sender}`;
     
     let html = `<div class="f-msg-content">`;
-    if (sender === 'bot') {
-      html += `<div class="f-avatar"><img src="${CONFIG.botAvatar}"></div>`;
-    }
     html += `<div class="f-bubble">${parseMarkdown(text)}</div></div>`;
 
-    // Add Copy/Regen buttons for bot messages without quick links
+    // Add Like/Dislike/Copy/Regen buttons for bot messages without quick links
     if (sender === 'bot' && !hasActions) {
+      const messageId = Date.now().toString();
       html += `
         <div class="f-msg-actions">
-          <button class="f-action-btn" onclick="window.flameyCopy(this, \`${text.replace(/`/g, "\\`").replace(/"/g, "&quot;")}\`)">${svgs.copy} Copy</button>
-          <button class="f-action-btn" onclick="window.flameyRegen()">${svgs.refresh} Regenerate</button>
+          <button class="f-action-btn ${likedMessages.has(messageId) ? 'active' : ''}" onclick="window.flameyLike(this, '${messageId}')" title="Like">${svgs.like}</button>
+          <button class="f-action-btn ${dislikedMessages.has(messageId) ? 'active' : ''}" onclick="window.flameyDislike(this, '${messageId}')" title="Dislike">${svgs.dislike}</button>
+          <button class="f-action-btn" onclick="window.flameyCopy(this, \`${text.replace(/`/g, "\\`").replace(/"/g, "&quot;")}\`)" title="Copy">${svgs.copy}</button>
+          <button class="f-action-btn" onclick="window.flameyRegen()" title="Regenerate">${svgs.refresh}</button>
         </div>
       `;
     }
@@ -585,7 +610,6 @@
     row.className = 'f-msg-row bot';
     row.innerHTML = `
       <div class="f-msg-content">
-        <div class="f-avatar"><img src="${CONFIG.botAvatar}"></div>
         <div class="f-bubble"><div class="f-typing"><div class="f-dot"></div><div class="f-dot"></div><div class="f-dot"></div></div></div>
       </div>`;
     messagesArea.appendChild(row);
@@ -669,12 +693,44 @@
   window.flameyCopy = (btn, text) => {
     navigator.clipboard.writeText(text);
     const originalHtml = btn.innerHTML;
-    btn.innerHTML = `${svgs.check || '✓'} Copied`;
-    setTimeout(() => btn.innerHTML = originalHtml, 2000);
+    btn.innerHTML = `${svgs.check}`;
+    btn.title = "Copied!";
+    setTimeout(() => {
+      btn.innerHTML = `${svgs.copy}`;
+      btn.title = "Copy";
+    }, 2000);
   };
 
   window.flameyRegen = () => {
     if (lastUserMessage) sendMessage(lastUserMessage, 'panel');
+  };
+
+  window.flameyLike = (btn, messageId) => {
+    if (likedMessages.has(messageId)) {
+      likedMessages.delete(messageId);
+      btn.classList.remove('active');
+    } else {
+      likedMessages.add(messageId);
+      dislikedMessages.delete(messageId);
+      btn.classList.add('active');
+      // Remove active class from dislike button if present
+      const dislikeBtn = btn.parentElement.querySelector('.f-action-btn:nth-child(2)');
+      if (dislikeBtn) dislikeBtn.classList.remove('active');
+    }
+  };
+
+  window.flameyDislike = (btn, messageId) => {
+    if (dislikedMessages.has(messageId)) {
+      dislikedMessages.delete(messageId);
+      btn.classList.remove('active');
+    } else {
+      dislikedMessages.add(messageId);
+      likedMessages.delete(messageId);
+      btn.classList.add('active');
+      // Remove active class from like button if present
+      const likeBtn = btn.parentElement.querySelector('.f-action-btn:nth-child(1)');
+      if (likeBtn) likeBtn.classList.remove('active');
+    }
   };
 
   // --- Event Listeners ---
@@ -735,6 +791,32 @@
   } else {
     micBtn.style.display = 'none';
   }
+
+  // Panel Resize Functionality
+  let isResizing = false;
+  panel.addEventListener('mousedown', (e) => {
+    if (e.offsetX < 10) { // Only trigger when clicking near left edge
+      isResizing = true;
+      document.body.style.userSelect = 'none';
+    }
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isResizing) return;
+    
+    const newWidth = window.innerWidth - e.clientX;
+    const minWidth = 300;
+    const maxWidth = 600;
+    
+    if (newWidth >= minWidth && newWidth <= maxWidth) {
+      panel.style.width = `${newWidth}px`;
+    }
+  });
+
+  document.addEventListener('mouseup', () => {
+    isResizing = false;
+    document.body.style.userSelect = '';
+  });
 
   // Init
   showSuggestions();
