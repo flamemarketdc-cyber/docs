@@ -32,34 +32,34 @@
           {
             "group": "Roles",
             "pages": [
-              "/server-configuration/roles/vanity",
-              "/server-configuration/roles/guild-tag",
-              "/server-configuration/roles/join",
-              "/server-configuration/roles/self"
+              "/configuration/roles/vanity",
+              "/configuration/roles/guild-tag",
+              "/configuration/roles/join",
+              "/configuration/roles/self"
             ]
           },
           {
             "group": "Messages",
             "pages": [
-              "/server-configuration/messages/system",
-              "/server-configuration/messages/sticky",
-              "/server-configuration/messages/scheduled",
-              "/server-configuration/messages/auto-responders",
-              "/server-configuration/messages/templates"
+              "/configuration/messages/system",
+              "/configuration/messages/sticky",
+              "/configuration/messages/scheduled",
+              "/configuration/messages/auto-responders",
+              "/configuration/messages/templates"
             ]
           },
           {
             "group": "Commands",
             "pages": [
-              "/server-configuration/commands/configuration",
-              "/server-configuration/commands/custom"
+              "/configuration/commands/configuration",
+              "/configuration/commands/custom"
             ]
           },
           {
             "group": "Staff",
             "pages": [
-              "/server-configuration/staff/applications",
-              "/server-configuration/staff/stats"
+              "/configuration/staff/applications",
+              "/configuration/staff/stats"
             ]
           }
         ]
