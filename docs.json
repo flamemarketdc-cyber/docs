@@ -135,9 +135,9 @@
     }
   },
   "head": [
-    {
-      "tag": "script",
-      "attrs": { "src": "/chatbot.js", "defer": true }
-    }
-  ]
+  {
+    "tag": "script",
+    "attrs": { "src": "https://<your-backend>.vercel.app/chatbot.js", "defer": true }
+  }
+]
 }
