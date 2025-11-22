@@ -1,56 +1,122 @@
-(function () {
-  const API = "https://chatbot-for-mintlify.vercel.app/api/chat"; // your backend
+// Inject styles
+const style = document.createElement("style");
+style.innerHTML = `
+#floating-chat-input {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 350px;
+  background: #111;
+  padding: 10px 15px;
+  border-radius: 999px;
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  z-index: 9999;
+}
+#floating-chat-input input {
+  width: 100%;
+  background: #000;
+  border: none;
+  padding: 10px;
+  border-radius: 999px;
+  outline: none;
+  color: #fff;
+}
+#chat-panel {
+  position: fixed;
+  right: -400px;
+  top: 0;
+  width: 400px;
+  height: 100vh;
+  background: #0a0a0a;
+  border-left: 1px solid #222;
+  display: flex;
+  flex-direction: column;
+  transition: right 0.35s ease;
+  z-index: 99999;
+}
+#chat-header {
+  padding: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  background: #111;
+  border-bottom: 1px solid #222;
+}
+#chat-messages {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  color: #fff;
+}
+#chatbox-input {
+  padding: 15px;
+  border: none;
+  outline: none;
+  background: #000;
+  color: #fff;
+  border-top: 1px solid #222;
+}
+.msg-user { color: #a78bfa; font-weight: 600; margin-top: 10px; }
+.msg-bot  { color: #7c3aed; font-weight: 600; margin-top: 10px; }
+`;
+document.head.appendChild(style);
 
-  function createWidget() {
-    const box = document.createElement("div");
-    Object.assign(box.style, {
-      position: "fixed",
-      right: "20px",
-      bottom: "20px",
-      width: "350px",
-      height: "450px",
-      background: "#0A0A0F",
-      border: "1px solid #333",
-      borderRadius: "12px",
-      overflow: "hidden",
-      zIndex: 9999,
-      color: "#fff",
-      fontFamily: "Inter, sans-serif"
-    });
+// Grab elements
+const floatingInput = document.getElementById("ask-input");
+const floatingBox = document.getElementById("floating-chat-input");
+const panel = document.getElementById("chat-panel");
+const messages = document.getElementById("chat-messages");
+const chatInput = document.getElementById("chatbox-input");
 
-    box.innerHTML = `
-      <div style="background:#7C3AED;padding:10px;font-weight:bold;">Flamey Chatbot</div>
-      <div id="log" style="height:330px;overflow:auto;padding:10px;"></div>
-      <div style="padding:10px;display:flex;gap:10px;">
-        <input id="msg" placeholder="Ask..." style="flex:1;padding:8px;border-radius:8px;border:none;background:#151521;color:#fff;" />
-        <button id="send" style="padding:8px 12px;border-radius:8px;border:none;background:#8660FA;color:#fff;">Send</button>
-      </div>
-    `;
-
-    document.body.appendChild(box);
-
-    const log = box.querySelector("#log");
-    const msg = box.querySelector("#msg");
-    const send = box.querySelector("#send");
-
-    send.onclick = async () => {
-      const text = msg.value;
-      if (!text) return;
-
-      log.innerHTML += `<div><b>You:</b> ${text}</div>`;
-      msg.value = "";
-
-      const res = await fetch(API, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text })
-      });
-
-      const data = await res.json();
-      log.innerHTML += `<div><b>Bot:</b> ${data.reply}</div>`;
-      log.scrollTop = log.scrollHeight;
-    };
+// Show panel when Enter pressed on floating input
+floatingInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && floatingInput.value.trim()) {
+    const q = floatingInput.value.trim();
+    floatingBox.style.display = "none";
+    panel.style.right = "0px";
+    addMessage("user", q);
+    sendToBot(q);
+    floatingInput.value = "";
   }
+});
 
-  window.addEventListener("DOMContentLoaded", createWidget);
-})();
+// Panel input Enter
+chatInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && chatInput.value.trim()) {
+    const msg = chatInput.value.trim();
+    addMessage("user", msg);
+    sendToBot(msg);
+    chatInput.value = "";
+  }
+});
+
+// Add message
+function addMessage(sender, text) {
+  const div = document.createElement("div");
+  div.innerHTML =
+    sender === "user"
+      ? `<div class="msg-user">You:</div>${text}`
+      : `<div class="msg-bot">Bot:</div>${text}`;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+// Send to bot
+async function sendToBot(message) {
+  addMessage("bot", "Typing...");
+  try {
+    const res = await fetch("https://docs-sepia-xi.vercel.app/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message }),
+    });
+    const data = await res.json();
+    messages.lastChild.remove(); // remove "Typing..."
+    addMessage("bot", data.reply || "No response received.");
+  } catch (err) {
+    messages.lastChild.remove();
+    addMessage("bot", "Error: Unable to reach server.");
+  }
+}
