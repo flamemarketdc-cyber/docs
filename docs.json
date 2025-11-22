@@ -96,6 +96,13 @@
         ]
       },
       {
+        "group": "Integrations",
+        "pages": [
+          "/integrations/crypto",
+          "/integrations/social-notifications"
+        ]
+      },
+      {
         "group": "Resources",
         "pages": [
           "/resources/syntax",
