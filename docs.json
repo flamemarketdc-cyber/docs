@@ -19,23 +19,37 @@
         ]
       },
       {
-        "group": "Server Configuration",
+        "group": "Security Setup",
         "pages": [
-          "/support/automderation",
-          "/support/ticketsystem",
-          "/support/logging",
-          "/support/errorlogs"
+          "/security-setup/automderation",
+          "/security-setup/logging",
+          "/security-setup/errorlogs"
         ]
       },
       {
-        "group": "Security Setup",
-        "pages": [
-          "/server-management/messages",
-          "/server-management/staff",
-          "/server-management/roles",
-          "/server-management/custom-cmds"
-        ]
-      },
+  "group": "Server Configuration",
+  "pages": [
+    "/server-configuration/messages",
+    "/server-configuration/staff",
+    {
+      "group": "Roles",
+      "pages": [
+        "/server-configuration/roles/vanity",
+        "/server-configuration/roles/guild-tag",
+        "/server-configuration/roles/reaction",
+        "/server-configuration/roles/join"
+      ]
+    },
+    {
+      "group": "Commands",
+      "pages": [
+        "/server-configuration/commands/aliases",
+        "/server-configuration/commands/custom"
+        
+      ]
+    }
+  ]
+},
       {
         "group": "Community",
         "pages": [
