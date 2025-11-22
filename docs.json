@@ -72,8 +72,18 @@
       {
         "group": "Community",
         "pages": [
+          {
+            "group": "Tracking",
+            "icon": "tracking",
+            "pages": [
+              "/community/tracking/messages",
+              "/community/tracking/invites"
+            ]
+          },
           "/community/chatbot",
           "/community/giveaway",
+          "/community/ticket-system",
+          "/community/music",
           "/community/leveling",
           "/community/suggestion"
         ]
@@ -87,7 +97,7 @@
       {
         "group": "Common Issues",
         "pages": [
-          "/common-issues/Chatbot",
+          "/common-issues/permissions",
           "/common-issues/giveaway",
           "/common-issues/leveling",
           "/common-issues/suggestion"
