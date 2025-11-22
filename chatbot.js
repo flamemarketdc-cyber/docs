@@ -198,32 +198,27 @@
     .f-messages-area::-webkit-scrollbar { width: 4px; }
     .f-messages-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
 
-    .f-msg-row { display: flex; flex-direction: column; gap: 6px; animation: f-fade-in 0.3s ease-out; }
-    .f-msg-row.user { align-items: flex-end; }
+    .f-msg-row { display: flex; flex-direction: column; gap: 0; animation: f-fade-in 0.3s ease-out; } /* Removed gap */
+    .f-msg-row.user { align-items: flex-start; } /* Changed from flex-end to flex-start */
     
-    .f-msg-content { display: flex; gap: 12px; max-width: 100%; }
-    .f-msg-row.user .f-msg-content { justify-content: flex-end; }
-
-    .f-avatar {
-      width: 28px; height: 28px; border-radius: 50%;
-      background: #1E1E2E; flex-shrink: 0;
-      margin-top: 4px;
-    }
-    .f-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+    .f-msg-content { display: flex; gap: 12px; max-width: 100%; width: 100%; }
+    .f-msg-row.user .f-msg-content { justify-content: flex-start; } /* Changed to flex-start */
 
     .f-bubble {
-      max-width: 85%;
+      max-width: 90%; /* Increased from 85% */
       padding: 0;
       font-size: 14px;
       line-height: 1.6;
       color: var(--f-text-sec);
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .f-msg-row.bot .f-bubble { color: #D0D6E0; }
     .f-msg-row.user .f-bubble { 
       background: #1E1E26; 
       padding: 10px 14px; 
       border-radius: 12px; 
-      border-bottom-right-radius: 2px;
+      border-bottom-left-radius: 2px; /* Changed from bottom-right to bottom-left */
       color: white; 
       border: 1px solid var(--f-border);
     }
@@ -240,7 +235,8 @@
     .f-msg-actions {
       display: flex;
       gap: 4px;
-      margin-left: 40px;
+      margin-left: 0; /* Removed left margin */
+      margin-top: 8px; /* Added top margin instead */
       opacity: 1; /* Always visible */
       align-items: center;
     }
@@ -267,8 +263,8 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 8px;
-      margin-left: 40px;
+      margin-top: 12px; /* Consistent spacing */
+      margin-left: 0; /* Removed left margin */
     }
     .f-chip {
       background: rgba(255,255,255,0.03);
@@ -309,13 +305,14 @@
     .f-panel-footer {
       padding: 20px;
       flex-shrink: 0;
+      background: var(--f-bg); /* Same background as panel */
     }
     
     .f-input-box {
-      background: #15151A;
+      background: #15151A; /* Same as before */
       border: 1px solid var(--f-border);
       border-radius: 16px;
-      padding: 8px 8px 8px 16px; /* More breathing room */
+      padding: 8px 12px 8px 16px; /* Adjusted padding for better spacing */
       display: flex;
       align-items: center;
       gap: 8px;
@@ -331,7 +328,7 @@
       font-size: 14px;
       padding: 8px 0;
       outline: none;
-      margin: 0 4px;
+      margin: 0 8px; /* Added more horizontal spacing */
     }
     #f-panel-input::placeholder { color: rgba(255,255,255,0.25); }
 
@@ -347,7 +344,7 @@
       justify-content: center;
       cursor: pointer;
       transition: 0.2s;
-      margin-left: 4px; /* Added spacing */
+      margin-left: 4px;
     }
     #f-panel-send:hover { background: var(--f-secondary); }
     #f-panel-send:disabled { opacity: 0.5; cursor: default; background: #333; }
@@ -468,6 +465,7 @@
   let isRecording = false;
   let likedMessages = new Set();
   let dislikedMessages = new Set();
+  let hasUserMessage = false; // Track if user has sent any message
 
   // --- Functions ---
 
@@ -488,41 +486,15 @@
   barInput.onfocus = () => searchBar.classList.add('focused');
   barInput.onblur = () => { if(!barInput.value) searchBar.classList.remove('focused'); };
 
-  // Render Suggestions
-  function showSuggestions() {
-    messagesArea.innerHTML = ''; // Clear
-    const suggestions = [
-      { label: "What can you do?", sub: "Learn about features" },
-      { label: "How to setup tickets?", sub: "Configuration guide" },
-      { label: "Pricing & Premium", sub: "View upgrade options" },
-      { label: "Moderation Tools", sub: "Protect your server" }
-    ];
-    
-    // Welcome Text
-    const welcome = document.createElement('div');
-    welcome.className = 'f-msg-row bot';
-    welcome.innerHTML = `
-      <div class="f-msg-content">
-        <div class="f-bubble">Hello. I am your Assistant. How can I help you configure your server today?</div>
-      </div>`;
-    messagesArea.appendChild(welcome);
-
-    // Suggestion Grid
-    const grid = document.createElement('div');
-    grid.className = 'f-suggestions';
-    suggestions.forEach(s => {
-      const card = document.createElement('div');
-      card.className = 'f-suggestion-card';
-      card.innerHTML = `<div class="f-suggestion-title">${s.label}</div><div class="f-suggestion-sub">${s.sub}</div>`;
-      card.onclick = () => sendMessage(s.label, 'panel');
-      grid.appendChild(card);
-    });
-    messagesArea.appendChild(grid);
+  // Render Empty State (No welcome message)
+  function showEmptyState() {
+    messagesArea.innerHTML = ''; // Completely empty
+    hasUserMessage = false;
   }
 
   // Clear Chat
   clearChatBtn.onclick = () => {
-    showSuggestions();
+    showEmptyState();
   };
 
   // Parse Markdown
@@ -558,9 +530,11 @@
 
   // Add Message to UI
   function addMessage(text, sender, hasActions = false) {
-    // Remove suggestions if present
-    const suggs = messagesArea.querySelector('.f-suggestions');
-    if (suggs) suggs.remove();
+    // Clear empty state when first message is sent
+    if (!hasUserMessage) {
+      messagesArea.innerHTML = '';
+      hasUserMessage = true;
+    }
 
     const row = document.createElement('div');
     row.className = `f-msg-row ${sender}`;
@@ -627,8 +601,9 @@
     if (source === 'bar') {
       openPanel();
       barInput.value = '';
-      // Wait for transition
-      await new Promise(r => setTimeout(r, 400));
+      // Clear any existing content and show user message instantly
+      messagesArea.innerHTML = '';
+      hasUserMessage = true;
     } else {
       panelInput.value = '';
     }
@@ -819,6 +794,6 @@
   });
 
   // Init
-  showSuggestions();
+  showEmptyState();
 
 })();
