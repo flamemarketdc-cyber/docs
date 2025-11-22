@@ -1,5 +1,5 @@
 (function () {
-  const API = "/api/chat"; // backend route
+  const API = "https://flamey-chat-backend.vercel.app/api/chat"; // your backend
 
   function createWidget() {
     const box = document.createElement("div");
@@ -36,6 +36,7 @@
     send.onclick = async () => {
       const text = msg.value;
       if (!text) return;
+
       log.innerHTML += `<div><b>You:</b> ${text}</div>`;
       msg.value = "";
 
