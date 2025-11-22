@@ -140,7 +140,7 @@
         {
           "tag": "script",
           "attrs": {
-            "src": "/static/chatbot.js",
+            "src": "/chatbot.js",
             "defer": true
           }
         }
