@@ -1,5 +1,5 @@
 (function () {
-  const API = "https://flamey-chat-backend.vercel.app/api/chat"; // your backend
+  const API = "https://docs-sepia-xi.vercel.app/api/chat"; // your backend
 
   function createWidget() {
     const box = document.createElement("div");
