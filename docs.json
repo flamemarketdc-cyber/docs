@@ -44,7 +44,7 @@
               "/configuration/messages/system",
               "/configuration/messages/sticky",
               "/configuration/messages/scheduled",
-              "/configuration/messages/auto-responders",
+              "/configuration/messages/auto-responder",
               "/configuration/messages/templates"
             ]
           },
