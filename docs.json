@@ -7,10 +7,8 @@
     "light": "#A78BFA",
     "dark": "#4C1D95"
   },
-   "styling": {
-    "icons": {
-      "library": "lucide"
-    }
+  "icons": {
+    "library": "lucide"
   },
   "favicon": "https://i.postimg.cc/bJBHPq11/Flamey.png",
   "navigation": {
