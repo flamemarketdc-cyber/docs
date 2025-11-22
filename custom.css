@@ -18,3 +18,19 @@ button[aria-label*="mode"],
   width: 0 !important;
   height: 0 !important;
 }
+/* In your custom.css file */
+body {
+  background: #08080B !important; /* Or whatever your original color was */
+}
+
+/* Ensure the chatbot doesn't affect main website background */
+#flamey-root {
+  background: transparent !important;
+}
+
+/* Make sure main content areas maintain their original background */
+.main-content, 
+.content-area,
+.docs-content {
+  background: inherit !important;
+}

@@ -7,6 +7,16 @@
     apiUrl: "https://chatbot-for-mintlify.vercel.app/api/chat"
   };
 
+  // Check if we're on a docs page - only show on docs pages
+  const isDocsPage = window.location.hostname === 'docs.flamey.lol' || 
+                    window.location.pathname.includes('/docs') ||
+                    document.querySelector('body').classList.contains('docs') ||
+                    document.querySelector('[data-docs="true"]');
+
+  if (!isDocsPage) {
+    return; // Don't show the chatbot on non-docs pages
+  }
+
   // 1. Inject Fonts
   if (!document.getElementById('flamey-fonts')) {
     const link = document.createElement('link');
@@ -272,7 +282,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 4px; /* Reduced gap significantly */
+      margin-top: 2px; /* Very small gap */
       margin-left: 0;
     }
     .f-chip {
@@ -404,7 +414,7 @@
   const root = document.createElement('div');
   root.id = 'flamey-root';
   root.innerHTML = `
-    <!-- Floating Bar -->
+    <!-- Floating Search Bar -->
     <div id="f-bar-container">
       <div id="f-search-bar">
         <input type="text" id="f-search-input" placeholder="Ask a question..." />
@@ -587,16 +597,21 @@
       
       // Handle link clicks properly
       if (l.query && l.query.startsWith('http')) {
-        // External URL - open in new tab
-        btn.onclick = () => window.open(l.query, '_blank');
+        // Check if it's the same domain
+        const isSameDomain = l.query.includes('docs.flamey.lol') || l.query.includes(window.location.hostname);
+        if (isSameDomain) {
+          // Same domain - navigate without opening new tab
+          btn.onclick = () => {
+            window.location.href = l.query;
+          };
+        } else {
+          // External domain - open in new tab
+          btn.onclick = () => window.open(l.query, '_blank');
+        }
       } else if (l.query && l.query.startsWith('/')) {
-        // Internal URL - navigate without reload using history API
+        // Internal URL - navigate normally
         btn.onclick = () => {
-          if (window.location.pathname !== l.query) {
-            window.history.pushState({}, '', l.query);
-            // Dispatch a custom event for SPA navigation if needed
-            window.dispatchEvent(new PopStateEvent('popstate'));
-          }
+          window.location.href = l.query;
         };
       } else {
         // Text query - send as message
@@ -667,6 +682,7 @@
       5. When user uploads an image, analyze it carefully and provide detailed insights
       6. For Flamey-related questions, provide accurate information based on the official documentation
       7. If you're unsure about something, admit it rather than guessing
+      8. For docs.flamey.lol links, they should open in the same tab since they're internal
     `;
 
     // Prepare the request data
