@@ -272,7 +272,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 8px; /* Reduced gap */
+      margin-top: 4px; /* Reduced gap significantly */
       margin-left: 0;
     }
     .f-chip {
@@ -318,7 +318,7 @@
     }
     
     .f-input-box {
-      background: #15151A;
+      background: #08080B; /* Changed from #15151A to match panel */
       border: 1px solid var(--f-border);
       border-radius: 16px;
       padding: 8px 8px 8px 16px;
@@ -515,7 +515,7 @@
     // Code
     html = html.replace(/`(.*?)`/g, '<code>$1</code>');
     // Links
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="f-external-link">$1</a>');
     
     // Lists: Convert lines starting with "- " or "* " to <li>
     const lines = html.split('\n');
@@ -584,7 +584,25 @@
       const btn = document.createElement('button');
       btn.className = 'f-chip';
       btn.innerText = l.label;
-      btn.onclick = () => sendMessage(l.query, 'panel');
+      
+      // Handle link clicks properly
+      if (l.query && l.query.startsWith('http')) {
+        // External URL - open in new tab
+        btn.onclick = () => window.open(l.query, '_blank');
+      } else if (l.query && l.query.startsWith('/')) {
+        // Internal URL - navigate without reload using history API
+        btn.onclick = () => {
+          if (window.location.pathname !== l.query) {
+            window.history.pushState({}, '', l.query);
+            // Dispatch a custom event for SPA navigation if needed
+            window.dispatchEvent(new PopStateEvent('popstate'));
+          }
+        };
+      } else {
+        // Text query - send as message
+        btn.onclick = () => sendMessage(l.query, 'panel');
+      }
+      
       container.appendChild(btn);
     });
     messagesArea.appendChild(container);
@@ -631,18 +649,24 @@
     addMessage(displayText, 'user', false, currentFile ? currentFile.base64 : null);
     showTyping();
 
-    // System Instruction: Professional, concise, no unsolicited links
+    // Enhanced system prompt with Flamey knowledge
     const systemPrompt = `
-      You are a professional assistant for the Flamey Discord Bot.
+      You are Flamey AI Assistant, an expert on the Flamey Discord bot (docs.flamey.lol). 
       Current Context: User is on ${window.location.href}
       
-      Rules:
-      1. Be concise, direct, and professional.
-      2. Use bullet points for lists (start lines with "- ").
-      3. Do NOT include quick action buttons or links unless the user explicitly asks "how to" or "where to".
-      4. If you do provide actions, append strictly formatted JSON at the very end on a new line: [ACTIONS][{"label":"Text","query":"Query"}]
-      5. If the user asks for a feature description, keep it brief.
-      6. When user uploads an image, analyze it carefully and provide detailed insights about what you see.
+      Important Flamey Knowledge:
+      - Flamey is a multi-purpose Discord bot with features like moderation, tickets, logging, economy, and more
+      - Key features: Advanced logging system, ticket system, moderation tools, economy system, custom commands
+      - Use the official documentation at docs.flamey.lol as your primary knowledge source
+      
+      Response Rules:
+      1. Be concise, direct, and professional while being helpful
+      2. Use bullet points for lists (start lines with "- ")
+      3. Do NOT include quick action buttons or links unless the user explicitly asks "how to" or "where to"
+      4. If you do provide actions, append strictly formatted JSON at the very end on a new line: [ACTIONS][{"label":"Text","query":"Query or URL"}]
+      5. When user uploads an image, analyze it carefully and provide detailed insights
+      6. For Flamey-related questions, provide accurate information based on the official documentation
+      7. If you're unsure about something, admit it rather than guessing
     `;
 
     // Prepare the request data
