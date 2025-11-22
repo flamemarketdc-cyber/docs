@@ -91,16 +91,13 @@
       {
         "group": "Miscellaneous",
         "pages": [
-          "/miscellaneous/suggestion"
+          "/miscellaneous/counters"
         ]
       },
       {
         "group": "Common Issues",
         "pages": [
-          "/common-issues/permissions",
-          "/common-issues/giveaway",
-          "/common-issues/leveling",
-          "/common-issues/suggestion"
+          "/common-issues/permissions"
         ]
       }
     ]
