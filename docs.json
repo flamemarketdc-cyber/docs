@@ -31,6 +31,7 @@
         "pages": [
           {
             "group": "Roles",
+            "icon": "users",
             "pages": [
               "/configuration/roles/vanity",
               "/configuration/roles/guild-tag",
@@ -40,6 +41,7 @@
           },
           {
             "group": "Messages",
+            "icon": "message",
             "pages": [
               "/configuration/messages/system",
               "/configuration/messages/sticky",
@@ -51,6 +53,7 @@
           },
           {
             "group": "Commands",
+            "icon": "code",
             "pages": [
               "/configuration/commands/configuration",
               "/configuration/commands/custom"
@@ -58,6 +61,7 @@
           },
           {
             "group": "Staff",
+            "icon": "users-round",
             "pages": [
               "/configuration/staff/applications",
               "/configuration/staff/stats"
