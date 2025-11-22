@@ -194,18 +194,19 @@
       flex-direction: column;
       gap: 24px;
       scroll-behavior: smooth;
+      background: #08080B; /* Ensure same background */
     }
     .f-messages-area::-webkit-scrollbar { width: 4px; }
     .f-messages-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
 
-    .f-msg-row { display: flex; flex-direction: column; gap: 0; animation: f-fade-in 0.3s ease-out; } /* Removed gap */
-    .f-msg-row.user { align-items: flex-end; } /* Changed from flex-end to flex-start */
+    .f-msg-row { display: flex; flex-direction: column; gap: 0; animation: f-fade-in 0.3s ease-out; }
+    .f-msg-row.user { align-items: flex-end; }
     
     .f-msg-content { display: flex; gap: 12px; max-width: 100%; width: 100%; }
     .f-msg-row.user .f-msg-content { justify-content: flex-end; }
 
     .f-bubble {
-      max-width: 90%; /* Increased from 85% */
+      max-width: 90%;
       padding: 0;
       font-size: 14px;
       line-height: 1.6;
@@ -223,6 +224,14 @@
       border: 1px solid var(--f-border);
     }
 
+    /* Image preview in user message */
+    .f-image-preview {
+      max-width: 200px;
+      border-radius: 8px;
+      margin-top: 8px;
+      border: 1px solid var(--f-border);
+    }
+
     /* Markdown Styles */
     .f-bubble strong { color: white; font-weight: 600; }
     .f-bubble ul { margin: 8px 0; padding-left: 18px; list-style-type: disc; }
@@ -235,9 +244,9 @@
     .f-msg-actions {
       display: flex;
       gap: 4px;
-      margin-left: 0; /* Removed left margin */
-      margin-top: 8px; /* Added top margin instead */
-      opacity: 1; /* Always visible */
+      margin-left: 0;
+      margin-top: 8px;
+      opacity: 1;
       align-items: center;
     }
     
@@ -263,8 +272,8 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 12px; /* Consistent spacing */
-      margin-left: 0; /* Removed left margin */
+      margin-top: 8px; /* Reduced gap */
+      margin-left: 0;
     }
     .f-chip {
       background: rgba(255,255,255,0.03);
@@ -305,14 +314,14 @@
     .f-panel-footer {
       padding: 20px;
       flex-shrink: 0;
-      background: var(--f-bg); /* Same background as panel */
+      background: var(--f-bg);
     }
     
     .f-input-box {
-      background: #15151A; /* Same as before */
+      background: #15151A;
       border: 1px solid var(--f-border);
       border-radius: 16px;
-      padding: 8px 8px 8px 16px; /* Adjusted padding for better spacing */
+      padding: 8px 8px 8px 16px;
       display: flex;
       align-items: center;
       gap: 4px;
@@ -328,7 +337,7 @@
       font-size: 14px;
       padding: 8px 0;
       outline: none;
-      margin: 0 4px; /* Added more horizontal spacing */
+      margin: 0 4px;
     }
     #f-panel-input::placeholder { color: rgba(255,255,255,0.25); }
 
@@ -465,7 +474,7 @@
   let isRecording = false;
   let likedMessages = new Set();
   let dislikedMessages = new Set();
-  let hasUserMessage = false; // Track if user has sent any message
+  let hasUserMessage = false;
 
   // --- Functions ---
 
@@ -529,7 +538,7 @@
   }
 
   // Add Message to UI
-  function addMessage(text, sender, hasActions = false) {
+  function addMessage(text, sender, hasActions = false, imageData = null) {
     // Clear empty state when first message is sent
     if (!hasUserMessage) {
       messagesArea.innerHTML = '';
@@ -540,7 +549,14 @@
     row.className = `f-msg-row ${sender}`;
     
     let html = `<div class="f-msg-content">`;
-    html += `<div class="f-bubble">${parseMarkdown(text)}</div></div>`;
+    html += `<div class="f-bubble">${parseMarkdown(text)}`;
+    
+    // Add image preview if available
+    if (imageData && sender === 'user') {
+      html += `<img src="${imageData}" class="f-image-preview" alt="Uploaded image" />`;
+    }
+    
+    html += `</div></div>`;
 
     // Add Like/Dislike/Copy/Regen buttons for bot messages without quick links
     if (sender === 'bot' && !hasActions) {
@@ -595,80 +611,81 @@
   }
 
   // --- Send Logic ---
-async function sendMessage(text, source = 'panel') {
-  if (!text && !currentFile) return;
+  async function sendMessage(text, source = 'panel') {
+    if (!text && !currentFile) return;
 
-  if (source === 'bar') {
-    openPanel();
-    barInput.value = '';
-    // Clear any existing content and show user message instantly
-    messagesArea.innerHTML = '';
-    hasUserMessage = true;
-  } else {
-    panelInput.value = '';
-  }
-
-  // Store the original text for display
-  const displayText = currentFile ? `[Uploaded Image] ${text}` : text;
-  
-  lastUserMessage = text;
-  addMessage(displayText, 'user');
-  showTyping();
-
-  // System Instruction: Professional, concise, no unsolicited links
-  const systemPrompt = `
-    You are a professional assistant for the Flamey Discord Bot.
-    Current Context: User is on ${window.location.href}
-    
-    Rules:
-    1. Be concise, direct, and professional.
-    2. Use bullet points for lists (start lines with "- ").
-    3. Do NOT include quick action buttons or links unless the user explicitly asks "how to" or "where to".
-    4. If you do provide actions, append strictly formatted JSON at the very end on a new line: [ACTIONS][{"label":"Text","query":"Query"}]
-      5. If the user asks for a feature description, keep it brief.
-  `;
-
-  // Prepare the request data
-  const requestData = {
-    message: `${systemPrompt}\n\nUser: ${text}`,
-    image: currentFile ? currentFile.base64 : null
-  };
-
-  // Reset file UI after storing the data
-  if (currentFile) {
-    removeFile();
-  }
-
-  try {
-    const res = await fetch(CONFIG.apiUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(requestData),
-    });
-    
-    const data = await res.json();
-    removeTyping();
-
-    let reply = data.reply || "I apologize, but I'm unable to process that request at the moment.";
-    
-    // Parse Actions
-    let actions = [];
-    if (reply.includes('[ACTIONS]')) {
-      const parts = reply.split('[ACTIONS]');
-      reply = parts[0].trim();
-      try {
-        actions = JSON.parse(parts[1]);
-      } catch(e) {}
+    if (source === 'bar') {
+      openPanel();
+      barInput.value = '';
+      // Clear any existing content and show user message instantly
+      messagesArea.innerHTML = '';
+      hasUserMessage = true;
+    } else {
+      panelInput.value = '';
     }
 
-    addMessage(reply, 'bot', actions.length > 0);
-    if (actions.length > 0) addQuickLinks(actions);
+    // Store the original text for display
+    const displayText = currentFile ? `${text}` : text;
+    
+    lastUserMessage = text;
+    addMessage(displayText, 'user', false, currentFile ? currentFile.base64 : null);
+    showTyping();
 
-  } catch (err) {
-    removeTyping();
-    addMessage("I'm having trouble connecting to the server. Please check your internet connection.", 'bot');
+    // System Instruction: Professional, concise, no unsolicited links
+    const systemPrompt = `
+      You are a professional assistant for the Flamey Discord Bot.
+      Current Context: User is on ${window.location.href}
+      
+      Rules:
+      1. Be concise, direct, and professional.
+      2. Use bullet points for lists (start lines with "- ").
+      3. Do NOT include quick action buttons or links unless the user explicitly asks "how to" or "where to".
+      4. If you do provide actions, append strictly formatted JSON at the very end on a new line: [ACTIONS][{"label":"Text","query":"Query"}]
+      5. If the user asks for a feature description, keep it brief.
+      6. When user uploads an image, analyze it carefully and provide detailed insights about what you see.
+    `;
+
+    // Prepare the request data
+    const requestData = {
+      message: `${systemPrompt}\n\nUser: ${text}`,
+      image: currentFile ? currentFile.base64 : null
+    };
+
+    // Reset file UI after storing the data
+    if (currentFile) {
+      removeFile();
+    }
+
+    try {
+      const res = await fetch(CONFIG.apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(requestData),
+      });
+      
+      const data = await res.json();
+      removeTyping();
+
+      let reply = data.reply || "I apologize, but I'm unable to process that request at the moment.";
+      
+      // Parse Actions
+      let actions = [];
+      if (reply.includes('[ACTIONS]')) {
+        const parts = reply.split('[ACTIONS]');
+        reply = parts[0].trim();
+        try {
+          actions = JSON.parse(parts[1]);
+        } catch(e) {}
+      }
+
+      addMessage(reply, 'bot', actions.length > 0);
+      if (actions.length > 0) addQuickLinks(actions);
+
+    } catch (err) {
+      removeTyping();
+      addMessage("I'm having trouble connecting to the server. Please check your internet connection.", 'bot');
+    }
   }
-}
 
   // --- Globals for Inline Buttons ---
   window.flameyCopy = (btn, text) => {
