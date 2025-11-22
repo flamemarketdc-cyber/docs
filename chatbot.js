@@ -7,72 +7,14 @@
     apiUrl: "https://chatbot-for-mintlify.vercel.app/api/chat"
   };
 
-  // Check if we're on a valid docs page - only show on actual docs pages
-  const isDocsPage = () => {
-    // Check if it's a 404 page
-    if (document.querySelector('*:contains("404")') || 
-        document.querySelector('*:contains("Page not found")') ||
-        document.querySelector('*:contains("Not Found")') ||
-        document.body.innerText.includes('404') ||
-        document.body.innerText.includes('Page not found')) {
-      return false;
-    }
-    
-    // Check if we're on docs domain or path
-    const isDocsDomain = window.location.hostname === 'docs.flamey.lol';
-    const isDocsPath = window.location.pathname.includes('/docs') || 
-                       window.location.pathname.startsWith('/introduction') ||
-                       window.location.pathname.startsWith('/getting-started') ||
-                       window.location.pathname.startsWith('/features');
-    
-    // Check for docs-specific elements
-    const hasDocsElements = document.querySelector('body.docs') || 
-                           document.querySelector('[data-docs="true"]') ||
-                           document.querySelector('.docs-sidebar') ||
-                           document.querySelector('.docs-content') ||
-                           document.querySelector('nav.docs') ||
-                           document.querySelector('.docsearch') || // Algolia search
-                           document.querySelector('[class*="search"]'); // Any search elements
-    
-    return (isDocsDomain || isDocsPath || hasDocsElements) && !is404Page();
-  };
+  // Check if we're on a docs page - only show on docs pages
+  const isDocsPage = window.location.hostname === 'docs.flamey.lol' || 
+                    window.location.pathname.includes('/docs') ||
+                    document.querySelector('body').classList.contains('docs') ||
+                    document.querySelector('[data-docs="true"]');
 
-  // Check for 404 page more reliably
-  const is404Page = () => {
-    // Check page title
-    if (document.title.includes('404') || document.title.includes('Not Found')) {
-      return true;
-    }
-    
-    // Check for common 404 elements
-    const errorSelectors = [
-      'h1:contains("404")',
-      'h1:contains("Page not found")',
-      'h1:contains("Not Found")',
-      '.error-404',
-      '.not-found',
-      '[class*="404"]',
-      '[class*="error"]',
-      '[class*="not-found"]'
-    ];
-    
-    for (const selector of errorSelectors) {
-      try {
-        if (document.querySelector(selector)) return true;
-      } catch (e) {}
-    }
-    
-    // Check URL pattern for 404
-    if (window.location.pathname.includes('404')) {
-      return true;
-    }
-    
-    return false;
-  };
-
-  // Don't show on non-docs or 404 pages
-  if (!isDocsPage()) {
-    return;
+  if (!isDocsPage) {
+    return; // Don't show the chatbot on non-docs pages
   }
 
   // 1. Inject Fonts
@@ -118,7 +60,7 @@
       justify-content: center;
       pointer-events: auto;
       transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: 10000; /* Higher z-index */
+      z-index: 10;
     }
 
     #f-bar-container.hidden {
@@ -130,9 +72,9 @@
     #f-search-bar {
       width: 320px;
       height: 52px;
-      background: rgba(8, 8, 11, 0.95);
-      backdrop-filter: blur(20px); /* Increased blur */
-      -webkit-backdrop-filter: blur(20px);
+      background: rgba(8, 8, 11, 0.9);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--f-border);
       border-radius: 999px;
       display: flex;
@@ -140,17 +82,13 @@
       padding: 0 6px 0 20px;
       box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-      z-index: 10001;
     }
 
     #f-search-bar:hover, #f-search-bar.focused {
       width: 480px;
-      background: rgba(8, 8, 11, 0.98);
+      background: #08080B;
       border-color: rgba(255,255,255,0.2);
       box-shadow: 0 0 0 2px rgba(134, 96, 250, 0.1), 0 20px 50px -10px rgba(0,0,0,0.7);
-      backdrop-filter: blur(25px); /* More blur on focus */
-      -webkit-backdrop-filter: blur(25px);
     }
 
     #f-search-input {
@@ -162,7 +100,6 @@
       font-weight: 500;
       outline: none;
       height: 100%;
-      pointer-events: auto;
     }
     #f-search-input::placeholder { color: rgba(255,255,255,0.4); }
 
@@ -178,22 +115,8 @@
       align-items: center;
       justify-content: center;
       transition: all 0.2s;
-      pointer-events: auto;
     }
     #f-bar-send:hover { transform: scale(1.05); background: var(--f-secondary); }
-
-    /* Clickable area around the search bar */
-    #f-bar-click-area {
-      position: absolute;
-      bottom: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 500px; /* Wider clickable area */
-      height: 80px; /* Taller clickable area */
-      pointer-events: auto;
-      z-index: 9999;
-      background: transparent;
-    }
 
     /* --- Side Panel --- */
     #f-panel {
@@ -212,11 +135,9 @@
       display: flex;
       flex-direction: column;
       pointer-events: auto;
-      z-index: 10000; /* High z-index */
+      z-index: 20;
       resize: horizontal;
       overflow: auto;
-      backdrop-filter: blur(20px); /* Panel blur */
-      -webkit-backdrop-filter: blur(20px);
     }
 
     #f-panel.open { transform: translateX(0); }
@@ -242,8 +163,6 @@
       padding: 0 20px;
       border-bottom: 1px solid transparent;
       flex-shrink: 0;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
     }
 
     .f-brand {
@@ -406,8 +325,6 @@
       padding: 20px;
       flex-shrink: 0;
       background: var(--f-bg);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
     }
     
     .f-input-box {
@@ -419,8 +336,6 @@
       align-items: center;
       gap: 4px;
       transition: border 0.2s;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
     }
     .f-input-box:focus-within { border-color: var(--f-primary); }
 
@@ -501,7 +416,6 @@
   root.innerHTML = `
     <!-- Floating Search Bar -->
     <div id="f-bar-container">
-      <div id="f-bar-click-area"></div>
       <div id="f-search-bar">
         <input type="text" id="f-search-input" placeholder="Ask a question..." />
         <button id="f-bar-send">${svgs.send}</button>
@@ -549,7 +463,6 @@
   const searchBar = document.getElementById('f-search-bar');
   const barInput = document.getElementById('f-search-input');
   const barSend = document.getElementById('f-bar-send');
-  const barClickArea = document.getElementById('f-bar-click-area');
   
   const panel = document.getElementById('f-panel');
   const closePanelBtn = document.getElementById('f-close-panel');
@@ -591,12 +504,6 @@
   closePanelBtn.onclick = closePanel;
   barInput.onfocus = () => searchBar.classList.add('focused');
   barInput.onblur = () => { if(!barInput.value) searchBar.classList.remove('focused'); };
-
-  // Make click area open the panel
-  barClickArea.onclick = () => {
-    openPanel();
-    setTimeout(() => panelInput.focus(), 300);
-  };
 
   // Render Empty State (No welcome message)
   function showEmptyState() {
