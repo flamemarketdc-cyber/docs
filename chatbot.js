@@ -49,16 +49,16 @@
       pointer-events: none;
     }
 
-    /* --- Floating Search Bar --- */
+        /* --- Floating Search Bar --- */
     #f-bar-container {
       position: fixed;
       bottom: 24px;
       left: 50%;
       transform: translateX(-50%);
-      width: 100%;
+      width: auto; /* Changed from 100% to auto */
       display: flex;
       justify-content: center;
-      pointer-events: auto;
+      pointer-events: none; /* Make container not block clicks */
       transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       z-index: 10;
     }
@@ -82,6 +82,7 @@
       padding: 0 6px 0 20px;
       box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: auto; /* Only the bar itself is clickable */
     }
 
     #f-search-bar:hover, #f-search-bar.focused {
@@ -100,6 +101,7 @@
       font-weight: 500;
       outline: none;
       height: 100%;
+      pointer-events: auto; /* Input should be clickable */
     }
     #f-search-input::placeholder { color: rgba(255,255,255,0.4); }
 
@@ -115,6 +117,7 @@
       align-items: center;
       justify-content: center;
       transition: all 0.2s;
+      pointer-events: auto; /* Button should be clickable */
     }
     #f-bar-send:hover { transform: scale(1.05); background: var(--f-secondary); }
 
