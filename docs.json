@@ -3,9 +3,9 @@
   "theme": "mint",
   "name": "Flameey",
   "colors": {
-    "primary": "#8660FA",
-    "light": "#A855F7",
-    "dark": "#5E38C2"
+    "primary": "#7C3AED",
+    "light": "#A78BFA",
+    "dark": "#4C1D95"
   },
   "favicon": "https://i.postimg.cc/bJBHPq11/Flamey.png",
   "navigation": {
