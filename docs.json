@@ -83,7 +83,7 @@
           "/community/chatbot",
           "/community/giveaway",
           "/community/economy",
-          "/community/ticket-system",
+          "/community/starboard",
           "/community/music",
           "/community/leveling",
           "/community/suggestion"
@@ -92,7 +92,8 @@
       {
         "group": "Miscellaneous",
         "pages": [
-          "/miscellaneous/timer"
+          "/miscellaneous/timer",
+          "/miscellaneous/tbump-reminder"
         ]
       },
       {
