@@ -22,7 +22,8 @@
         "group": "Security Setup",
         "pages": [
           "/security-setup/auto-moderation",
-          "/security-setup/error-logs"
+          "/security-setup/error-logs",
+          "/security-setup/virtual-permissions"
         ]
       },
       {
