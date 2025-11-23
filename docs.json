@@ -22,7 +22,6 @@
         "group": "Security Setup",
         "pages": [
           "/security-setup/auto-moderation",
-          "/security-setup/logging",
           "/security-setup/error-logs"
         ]
       },
@@ -66,7 +65,8 @@
               "/configuration/staff/stats"
             ]
           },
-          "/configuration/ticket"
+          "/configuration/ticket",
+          "/configuration/logging"
         ]
       },
       {
