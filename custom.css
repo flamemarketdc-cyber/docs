@@ -36,47 +36,67 @@ body {
   background: inherit !important;
 }
 
-/* Modern Grey Scrollbar - Thicker & More Rounded */
+/* ===== Custom Scrollbar ===== */
+/* Main body scrollbar */
+body::-webkit-scrollbar {
+  width: 14px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #0A0A0F;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #151521;
+  border-radius: 10px;
+  border: 3px solid #0A0A0F;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background-color: #5E38C2;
+}
+
+/* Remove up/down arrow buttons */
+body::-webkit-scrollbar-button {
+  display: none !important;
+}
+
+/* Apply to all scrollable elements */
 ::-webkit-scrollbar {
-  width: 12px; /* Thicker */
-  height: 12px;
+  width: 14px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0f0f0f;
-  border-radius: 10px; /* More rounded */
+  background: #0A0A0F;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #555555; /* Lighter grey */
-  border-radius: 10px; /* More rounded */
-  border: 2px solid #0f0f0f; /* Border for better contrast */
-  transition: all 0.3s ease; /* Smooth transitions */
+  background-color: #151521;
+  border-radius: 10px;
+  border: 3px solid #0A0A0F;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #666666; /* Even lighter on hover */
-  border: 2px solid #1a1a1a;
-  transform: scale(1.05); /* Slight scale effect */
+  background-color: #5E38C2;
 }
 
-::-webkit-scrollbar-thumb:active {
-  background: #777777; /* Lightest when active */
-  border: 2px solid #1a1a1a;
+/* Remove all scrollbar buttons (up/down arrows) */
+::-webkit-scrollbar-button {
+  display: none !important;
 }
 
+/* Hide scrollbar corner */
 ::-webkit-scrollbar-corner {
-  background: #0f0f0f;
-  border-radius: 10px;
+  background: #0A0A0F;
 }
 
-/* For Firefox - Thicker & Better Colors */
+/* For Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #555555 #0f0f0f;
+  scrollbar-color: #151521 #0A0A0F;
 }
 
-/* Ensure sidebar keeps hidden scrollbar while rest of site has custom scrollbar */
+/* Ensure sidebar keeps hidden scrollbar */
 #sidebar *,
 #sidebar-content * {
   scrollbar-width: none !important;
