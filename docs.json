@@ -2,11 +2,6 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "Flamey",
-  "seo": {
-    "metatags": {
-        "canonical": "https://docs.flamey.lol"
-    }
-},
   "colors": {
     "primary": "#7C3AED",
     "light": "#A78BFA",
